@@ -101,9 +101,9 @@ header {
       padding: 0 0.5em;
       color: #444;
       text-decoration: none;
+      border-top: none;
 
-
-      &:hover, &:focus, .active {
+      &:hover, &:focus, &.active {
         text-decoration: none;
         cursor: pointer;
         color: #eb0028;
