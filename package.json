@@ -4,7 +4,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --open",
     "build": "ng build",
     "build_prod": "ng build --prod && gulp prod_postbuild",
     "test": "ng test",
