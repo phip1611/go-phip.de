@@ -1,0 +1,20 @@
+<header>
+  <div class="centered">
+    <h1>GO-PHIP.DE</h1>
+    <nav>
+      <ul>
+        <li><a routerLink="home">Home</a></li>
+        <li><a routerLink="projects">Meine Projekte</a></li>
+        <li><a routerLink="impressum">Impressum</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="centered">
+  <section>
+    <router-outlet></router-outlet>
+  </section>
+</div>
+
+<footer>&copy; Philipp Schuster {{year}} - <a routerLink="impressum">Impressum</a></footer>
