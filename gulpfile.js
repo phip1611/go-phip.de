@@ -25,4 +25,5 @@ gulp.task('static_gzip', () => {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('prod_postbuild', ['static_brotli', 'static_gzip']);
+gulp.task('prod_postbuild', gulp.parallel('static_brotli', 'static_gzip'));
+gulp.task('default', gulp.series('prod_postbuild'));
