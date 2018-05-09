@@ -276,3 +276,40 @@ FileETag None
     ExpiresByType text/x-cross-domain-policy            "access plus 1 week"
 
 </IfModule>
+
+#############################################
+# BROTLI (static)
+
+<IfModule mod_headers.c>
+    # Serve gzip compressed CSS files if they exist
+    # and the client accepts gzip.
+    RewriteCond "%{HTTP:Accept-encoding}" "br"
+    RewriteCond "%{REQUEST_FILENAME}\.br" -s
+    RewriteRule "^(.*)\.(css|js)" "$1\.$2\.br" [QSA]
+
+    RewriteCond "%{HTTP:Accept-encoding}" "gzip"
+    RewriteCond "%{REQUEST_FILENAME}\.gz" -s
+    RewriteRule "^(.*)\.(css|js)" "$1\.$2\.gz" [QSA]
+
+    # Serve correct content types, and prevent mod_deflate double gzip.
+    RewriteRule "\.css\.(br|gz)$" "-" [T=text/css,E=no-gzip:1]
+    RewriteRule "\.js\.(br|gz)$" "-" [T=text/javascript,E=no-gzip:1]
+
+    <FilesMatch "(\.js|\.css)\.br$">
+      # Serve correct encoding type.
+      Header append Content-Encoding br
+
+      # Force proxies to cache compressed &
+      # non-compressed css/js files separately.
+      Header append Vary Accept-Encoding
+    </FilesMatch>
+
+    <FilesMatch "(\.js|\.css)\.gz">
+      # Serve correct encoding type.
+      Header append Content-Encoding gzip
+
+      # Force proxies to cache compressed &
+      # non-compressed css/js files separately.
+      Header append Vary Accept-Encoding
+    </FilesMatch>
+</IfModule>
